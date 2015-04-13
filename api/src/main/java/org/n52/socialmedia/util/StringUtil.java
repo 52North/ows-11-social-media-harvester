@@ -38,6 +38,14 @@ public class StringUtil {
 		}
 		return text.replaceAll("[^\\x00-\\x7F]", "").trim();
 	}
+	
+	public static String escapeForXML(String text) {
+		return text.replaceAll("&", "&amp;")
+				.replaceAll("\"", "&quot;")
+				.replaceAll("'", "&apos;")
+				.replaceAll("<", "&lt;")
+				.replaceAll(">", "&gt;");
+	}
 
 	public static String createTagList(List<String> tags, String separator) {
 		StringBuilder sb = new StringBuilder();

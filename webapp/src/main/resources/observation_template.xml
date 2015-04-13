@@ -31,7 +31,5 @@
 			</sams:shape>
 		</sams:SF_SpatialSamplingFeature>
 	</om:featureOfInterest>
-	<om:result xsi:type="xs:string">
-${resultText}
-	</om:result>
+	<om:result xsi:type="xs:string">${resultText}</om:result>
 </om:OM_Observation>
