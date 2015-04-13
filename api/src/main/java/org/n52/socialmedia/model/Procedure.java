@@ -28,22 +28,22 @@
  */
 package org.n52.socialmedia.model;
 
-import org.joda.time.DateTime;
+public class Procedure {
+	
+	private String name;
+	private String identifier;
+	
+	public Procedure(String name, String identifier) {
+		this.name = name;
+		this.identifier = identifier;
+	}
 
-public interface HumanVisualPerceptionObservation {
+	public String getName() {
+		return name;
+	}
+	
+	public String getIdentifier() {
+		return identifier;
+	}
 
-	DateTime getPhenomenonTime();
-	
-	DateTime getResultTime();
-	
-	String getIdentifier();
-	
-	Procedure getProcedure();
-	
-	Location getLocation();
-	
-	String getResultHref();
-
-	String getResult();
-	
 }
