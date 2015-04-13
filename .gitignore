@@ -2,4 +2,4 @@
 .classpath
 .settings
 .project
-
+**/*_credentials.properties
