@@ -19,7 +19,7 @@
  * Therefore the distribution of the program linked with libraries licensed
  * under the aforementioned licenses, is permitted by the copyright holders
  * if the distribution is compliant with both the GNU General Public
- * icense version 2 and the aforementioned licenses.
+ * license version 2 and the aforementioned licenses.
  *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -36,16 +36,14 @@ public interface HumanVisualPerceptionObservation {
 	
 	DateTime getResultTime();
 	
-	String getDescription();
-	
-	String getName();
-	
 	String getIdentifier();
 	
-	String getProcedure();
+	Procedure getProcedure();
 	
 	Location getLocation();
 	
 	String getResultHref();
+
+	String getResult();
 	
 }

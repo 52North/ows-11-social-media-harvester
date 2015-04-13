@@ -26,20 +26,26 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  */
-package org.n52.socialmedia;
+package org.n52.socialmedia.util;
 
-import java.io.IOException;
+import java.util.List;
 
-public class DecodingException extends Exception {
+public class StringUtil {
 
-	private static final long serialVersionUID = 1L;
-
-	public DecodingException(String string) {
-		super(string);
+	public static String removeNonAscii(String text) {
+		if (text == null) {
+			return null;
+		}
+		return text.replaceAll("[^\\x00-\\x7F]", "").trim();
 	}
 
-	public DecodingException(IOException e) {
-		super(e);
+	public static String createTagList(List<String> tags, String separator) {
+		StringBuilder sb = new StringBuilder();
+		for (String string : tags) {
+			sb.append(string);
+			sb.append(separator);
+		}
+		return sb.toString().substring(0, sb.length()-separator.length());
 	}
-
+	
 }

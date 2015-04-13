@@ -19,33 +19,31 @@
  * Therefore the distribution of the program linked with libraries licensed
  * under the aforementioned licenses, is permitted by the copyright holders
  * if the distribution is compliant with both the GNU General Public
- * icense version 2 and the aforementioned licenses.
+ * license version 2 and the aforementioned licenses.
  *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  */
-package org.n52.socialmedia;
+package org.n52.socialmedia.model;
 
-import java.util.List;
-
-public class StringUtil {
-
-	public static String removeNonAscii(String text) {
-		if (text == null) {
-			return null;
-		}
-		return text.replaceAll("[^\\x00-\\x7F]", "").trim();
+public class Procedure {
+	
+	private String name;
+	private String identifier;
+	
+	public Procedure(String name, String identifier) {
+		this.name = name;
+		this.identifier = identifier;
 	}
 
-	public static String createTagList(List<String> tags, String separator) {
-		StringBuilder sb = new StringBuilder();
-		for (String string : tags) {
-			sb.append(string);
-			sb.append(separator);
-		}
-		return sb.toString();
+	public String getName() {
+		return name;
 	}
 	
+	public String getIdentifier() {
+		return identifier;
+	}
+
 }

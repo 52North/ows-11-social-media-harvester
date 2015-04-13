@@ -19,7 +19,7 @@
  * Therefore the distribution of the program linked with libraries licensed
  * under the aforementioned licenses, is permitted by the copyright holders
  * if the distribution is compliant with both the GNU General Public
- * icense version 2 and the aforementioned licenses.
+ * license version 2 and the aforementioned licenses.
  *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -35,15 +35,19 @@ import org.n52.socialmedia.model.HumanVisualPerceptionObservation;
 
 public interface Harvester {
 
-	Collection<HumanVisualPerceptionObservation> searchForImagesAt(
+	Collection<HumanVisualPerceptionObservation> searchForObservationsAt(
 			double latitude, double longitude) throws DecodingException;
 
-	Collection<HumanVisualPerceptionObservation> searchForImagesByTags(
-			final String... tags) throws DecodingException,
-			InvalidFilterException;
+	Collection<HumanVisualPerceptionObservation> searchForObservationsByTags(
+			final String... tags) throws DecodingException;
 
-	Collection<HumanVisualPerceptionObservation> searchForImagesAt(
+	Collection<HumanVisualPerceptionObservation> searchForObservationsAt(
 			double latitude, double longitude, DateTime start, DateTime end)
 			throws DecodingException;
+	
+	Collection<HumanVisualPerceptionObservation> getByIds(String... ids)
+			throws DecodingException;
+	
+	Collection<String> getSearchTerms();
 
 }

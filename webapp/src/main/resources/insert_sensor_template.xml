@@ -21,7 +21,7 @@
                                 <sml:IdentifierList>
                                     <sml:identifier name="uniqueID">
                                         <sml:Term definition="urn:ogc:def:identifier:OGC:1.0:uniqueID">
-                                            <sml:value>${procedure}</sml:value>
+                                            <sml:value>${procedureIdentifier}</sml:value>
                                         </sml:Term>
                                     </sml:identifier>
                                     <sml:identifier name="longName">
@@ -58,7 +58,7 @@
                                 <swe:SimpleDataRecord>
                                     <swe:field name="featureOfInterestID">
                                         <swe:Text>
-                                            <swe:value>http://www.52north.org/sos/featureOfInterest/world/us/ca/san_francisco</swe:value>
+                                            <swe:value>http://52north.org/sos/featureOfInterest/world</swe:value>
                                         </swe:Text>
                                     </swe:field>
                                 </swe:SimpleDataRecord>
@@ -87,7 +87,7 @@
             <swes:observableProperty>http://www.opengis.net/def/property/humanVisualPerception</swes:observableProperty>
             <swes:metadata>
                 <sos:SosInsertionMetadata>
-                    <sos:observationType>http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation</sos:observationType>
+                    <sos:observationType>http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_TextObservation</sos:observationType>
                     <!-- multiple values possible -->
                     <sos:featureOfInterestType>http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint</sos:featureOfInterestType>
                 </sos:SosInsertionMetadata>

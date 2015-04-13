@@ -1,7 +1,7 @@
-<om:OM_Observation gml:id="photo-295155260-observation">
-	<gml:description>${description}</gml:description>
+<om:OM_Observation gml:id="o1">
+	<gml:identifier codeSpace="">${link}</gml:identifier>
 	<om:type
-		xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_CategoryObservation" />
+		xlink:href="http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_TextObservation" />
 	<om:phenomenonTime>
 		<gml:TimeInstant gml:id="phenomenonTime">
 			<gml:timePosition>${phenTime}</gml:timePosition>
@@ -12,14 +12,14 @@
 			<gml:timePosition>${resultTime}</gml:timePosition>
 		</gml:TimeInstant>
 	</om:resultTime>
-	<om:procedure xlink:href="${procedure}" />
+	<om:procedure xlink:href="${procedureIdentifier}" />
 	<om:observedProperty
 		xlink:href="http://www.opengis.net/def/property/humanVisualPerception" />
 	<om:featureOfInterest>
 		<sams:SF_SpatialSamplingFeature gml:id="ssf_instance">
-			<gml:description>${description}</gml:description>
-			<gml:identifier codeSpace="">${identifier}</gml:identifier>
-			<gml:name>${name}</gml:name>
+			<gml:description>${featureDescription}</gml:description>
+			<gml:identifier codeSpace="">${featureIdentifier}</gml:identifier>
+			<gml:name>${featureName}</gml:name>
 			<sf:type
 				xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint" />
 			<sf:sampledFeature
@@ -31,6 +31,7 @@
 			</sams:shape>
 		</sams:SF_SpatialSamplingFeature>
 	</om:featureOfInterest>
-	<om:result xsi:type="gml:ReferenceType"
-		xlink:href="${resultHref}" />
+	<om:result xsi:type="xs:string">
+${resultText}
+	</om:result>
 </om:OM_Observation>
