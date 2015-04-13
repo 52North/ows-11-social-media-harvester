@@ -35,15 +35,19 @@ import org.n52.socialmedia.model.HumanVisualPerceptionObservation;
 
 public interface Harvester {
 
-	Collection<HumanVisualPerceptionObservation> searchForImagesAt(
+	Collection<HumanVisualPerceptionObservation> searchForObservationsAt(
 			double latitude, double longitude) throws DecodingException;
 
-	Collection<HumanVisualPerceptionObservation> searchForImagesByTags(
-			final String... tags) throws DecodingException,
-			InvalidFilterException;
+	Collection<HumanVisualPerceptionObservation> searchForObservationsByTags(
+			final String... tags) throws DecodingException;
 
-	Collection<HumanVisualPerceptionObservation> searchForImagesAt(
+	Collection<HumanVisualPerceptionObservation> searchForObservationsAt(
 			double latitude, double longitude, DateTime start, DateTime end)
 			throws DecodingException;
+	
+	Collection<HumanVisualPerceptionObservation> getByIds(String... ids)
+			throws DecodingException;
+	
+	Collection<String> getSearchTerms();
 
 }
