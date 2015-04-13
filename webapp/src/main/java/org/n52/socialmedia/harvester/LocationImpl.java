@@ -51,7 +51,7 @@ public class LocationImpl implements Location {
 	}
 
 	@Override
-	public Integer getId() {
+	public String getId() {
 		// TODO Auto-generated method stub
 		return null;
 	}
