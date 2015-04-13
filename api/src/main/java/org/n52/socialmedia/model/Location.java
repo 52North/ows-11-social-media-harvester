@@ -34,10 +34,9 @@ public interface Location {
 
 	Double getLongitude();
 
-	Integer getId();
+	String getId();
 
 	String getName();
-
 
 	class Util {
 		
