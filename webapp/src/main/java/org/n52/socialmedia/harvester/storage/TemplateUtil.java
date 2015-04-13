@@ -33,7 +33,7 @@ import java.util.Scanner;
 
 public class TemplateUtil {
 
-	public static String fillTemplate(String templateFileName, Map<String, String> values) {
+	public String fillTemplate(String templateFileName, Map<String, String> values) {
 		String template = readContents(templateFileName);
 		
 		for (String key : values.keySet()) {
@@ -44,7 +44,7 @@ public class TemplateUtil {
 		return template;
 	}
 
-	public static String readContents(String templateFileName) {
+	public String readContents(String templateFileName) {
 		StringBuilder sb = new StringBuilder();
 		String sep = System.getProperty("line.separator");
 		

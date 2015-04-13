@@ -29,8 +29,6 @@
 package org.n52.socialmedia.harvester.storage;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,14 +41,27 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
-import org.n52.instagram.decode.JsonUtil;
 import org.n52.socialmedia.model.HumanVisualPerceptionObservation;
 import org.n52.socialmedia.model.Location;
+import org.n52.socialmedia.model.Procedure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class InsertObservationToSOS implements ObservationStorage {
 	
+	public static final String OBSERVATION = "observation";
+	public static final String FEATURE_NAME = "featureName";
+	public static final String FEATURE_DESCRIPTION = "featureDescription";
+	public static final String FEAUTRE_IDENTIFIER = "featureIdentifier";
+	public static final String RESULT_TIME = "resultTime";
+	public static final String PHEN_TIME = "phenTime";
+	public static final String PROCEDURE_IDENTIFIER = "procedureIdentifier";
+	public static final String PROCEDURE = "procedure";
+	public static final String POSITION_LON_LAT = "lonLat";
+	public static final String OFFERING = "offering";
+	public static final String RESULT_TEXT = "resultText";
+	public static final String LINK = "link";
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(InsertObservationToSOS.class);
 	
 	private static final DateTimeFormatter ISO_FORMAT = ISODateTimeFormat.dateTimeNoMillis();
@@ -60,21 +71,28 @@ public class InsertObservationToSOS implements ObservationStorage {
 	private static final String INSERT_SENSOR_TEMPLATE = "/insert_sensor_template.xml";
 
 	private static final String SOS_URL = "http://ows.dev.52north.org:8080/52n-wfs-webapp/sos/soap";
+	
+//	private static final String SOS_URL = "http://localhost:8080/52n-sos-webapp/service";
+
+	
+	private TemplateUtil templateUtil = new TemplateUtil();
 
 	@Override
 	public void storeObservations(Collection<HumanVisualPerceptionObservation> observations) throws IOException {
 		for (HumanVisualPerceptionObservation o : observations) {
-			executeInsert(TemplateUtil.fillTemplate(OBSERVATION_TEMPLATE, createValueMap(o)), o.getProcedure());
+			executeInsert(
+					templateUtil.fillTemplate(OBSERVATION_TEMPLATE, createObservationValueMap(o)),
+					o.getProcedure());
 		}
 	}
 
-	private void executeInsert(String obs, String offering) throws IOException {
-		checkAndInsertSensor(offering, offering);
+	private void executeInsert(String obs, Procedure proc) throws IOException {
+		checkAndInsertSensor(proc);
 		
 		Map<String, String> values = new HashMap<>();
-		values.put("observation", obs);
-		values.put("offering", offering);
-		String requestContent = TemplateUtil.fillTemplate(INSERT_OBSERVATION_TEMPLATE, values);
+		values.put(OBSERVATION, obs);
+		values.put(OFFERING, proc.getName());
+		String requestContent = templateUtil.fillTemplate(INSERT_OBSERVATION_TEMPLATE, values);
 
 		executePost(requestContent);
 	}
@@ -84,6 +102,8 @@ public class InsertObservationToSOS implements ObservationStorage {
 		post.setHeader("Content-Type", "application/soap+xml");
 		post.setHeader("Accept", "application/soap+xml");
 		post.setEntity(new StringEntity(requestContent));
+		
+		LOGGER.debug("Request to send: \n{}", requestContent);
 		
 		try (CloseableHttpClient client = HttpClientBuilder.create().build();) {
 			CloseableHttpResponse response = client.execute(post);
@@ -103,28 +123,30 @@ public class InsertObservationToSOS implements ObservationStorage {
 		return null;
 	}
 
-	private void checkAndInsertSensor(String offering, String procedure) throws IOException {
+	private void checkAndInsertSensor(Procedure proc) throws IOException {
 		Map<String, String> values = new HashMap<>();
-		values.put("offering", offering);
-		values.put("procedure", procedure);
+		values.put(OFFERING, proc.getName());
+		values.put(PROCEDURE, proc.getName());
+		values.put(PROCEDURE_IDENTIFIER, proc.getIdentifier());
 		
-		String template = TemplateUtil.fillTemplate(INSERT_SENSOR_TEMPLATE, values);
+		String template = templateUtil.fillTemplate(INSERT_SENSOR_TEMPLATE, values);
 		
 		executePost(template);
 	}
 
-	private Map<String, String> createValueMap(
+	private Map<String, String> createObservationValueMap(
 			HumanVisualPerceptionObservation o) {
 		Map<String, String> result = new HashMap<>();
 		
-		result.put("phenTime", o.getPhenomenonTime().toString(ISO_FORMAT));
-		result.put("resultTime", o.getResultTime().toString(ISO_FORMAT));
-		result.put("description", o.getDescription());
-		result.put("identifier", o.getIdentifier());
-		result.put("name", o.getName());
-		result.put("procedure", o.getProcedure());
-		result.put("resultHref", o.getResultHref());
-		result.put("lonLat", Location.Util.toLonLatString(o.getLocation()));
+		result.put(LINK, o.getResultHref());
+		result.put(PHEN_TIME, o.getPhenomenonTime().toString(ISO_FORMAT));
+		result.put(RESULT_TIME, o.getResultTime().toString(ISO_FORMAT));
+		result.put(PROCEDURE_IDENTIFIER, o.getProcedure().getIdentifier());
+		result.put(FEATURE_DESCRIPTION, o.getLocation().getName());
+		result.put(FEAUTRE_IDENTIFIER, o.getLocation().getId());
+		result.put(FEATURE_NAME, o.getLocation().getName());
+		result.put(POSITION_LON_LAT, Location.Util.toLonLatString(o.getLocation()));
+		result.put(RESULT_TEXT, o.getResult());
 		
 		return result;
 	}
