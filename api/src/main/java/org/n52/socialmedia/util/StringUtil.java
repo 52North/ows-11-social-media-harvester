@@ -26,7 +26,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
  * Public License for more details.
  */
-package org.n52.socialmedia;
+package org.n52.socialmedia.util;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class StringUtil {
 			sb.append(string);
 			sb.append(separator);
 		}
-		return sb.toString();
+		return sb.toString().substring(0, sb.length()-separator.length());
 	}
 	
 }
