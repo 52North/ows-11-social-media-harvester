@@ -23,7 +23,7 @@
 			<sf:type
 				xlink:href="http://www.opengis.net/def/samplingFeatureType/OGC-OM/2.0/SF_SamplingPoint" />
 			<sf:sampledFeature
-				xlink:href="http://www.52north.org/sos/featureOfInterest/world/us/ca/san_francisco" />
+				xlink:href="http://52north.org/sos/featureOfInterest/world" />
 			<sams:shape>
 				<gml:Point gml:id="foiPointID">
 					<gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">${lonLat}</gml:pos>
@@ -31,7 +31,5 @@
 			</sams:shape>
 		</sams:SF_SpatialSamplingFeature>
 	</om:featureOfInterest>
-	<om:result xsi:type="xs:string">
-${resultText}
-	</om:result>
+	<om:result xsi:type="xs:string">${resultText}</om:result>
 </om:OM_Observation>
